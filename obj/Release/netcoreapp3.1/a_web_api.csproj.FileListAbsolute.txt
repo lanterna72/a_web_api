@@ -18,3 +18,8 @@
 /home/filippo/Desktop/a_web_api/obj/Release/netcoreapp3.1/a_web_api.dll
 /home/filippo/Desktop/a_web_api/obj/Release/netcoreapp3.1/a_web_api.pdb
 /home/filippo/Desktop/a_web_api/obj/Release/netcoreapp3.1/a_web_api.genruntimeconfig.cache
+/home/filippo/Desktop/a_web_api/bin/Release/netcoreapp3.1/nlog.config
+/home/filippo/Desktop/a_web_api/bin/Release/netcoreapp3.1/NLog.dll
+/home/filippo/Desktop/a_web_api/bin/Release/netcoreapp3.1/NLog.Extensions.Logging.dll
+/home/filippo/Desktop/a_web_api/bin/Release/netcoreapp3.1/NLog.Web.AspNetCore.dll
+/home/filippo/Desktop/a_web_api/obj/Release/netcoreapp3.1/a_web_api.csproj.CopyComplete
