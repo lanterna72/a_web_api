@@ -1,4 +1,5 @@
 ﻿using System;
+using CoreNLogText;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,9 +11,9 @@ namespace WebHookApiTest.Controllers
     [Route("[controller]")]
     public class WebHookController : ControllerBase
     {
-        private readonly ILogger<WebHookController> _logger;
+        private readonly ILog _logger;
 
-        public WebHookController(ILogger<WebHookController> logger)
+        public WebHookController(ILog logger)
         {
             _logger = logger;
         }
@@ -25,7 +26,7 @@ namespace WebHookApiTest.Controllers
             var incomingVar = pl;
             if (incomingVar == null)
                 return BadRequest();
-            _logger.LogInformation($"Notification received for {pl.AWB} / {pl.Event}");
+            _logger.Information($"Notification received for {pl.AWB} / {pl.Event}");
             return Ok();
         }
        
