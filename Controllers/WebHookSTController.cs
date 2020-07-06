@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreNLogText;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,10 +15,12 @@ namespace a_web_api.Controllers
     public class WebHookSTController : ControllerBase
     {
         private readonly ILog _logger;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public WebHookSTController(ILog logger)
+        public WebHookSTController(ILog logger, IHubContext<NotificationHub> hubContext)
         {
             _logger = logger;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -29,13 +32,15 @@ namespace a_web_api.Controllers
 
         // POST api/<WebHookSTController>
         [HttpPost]
-        public IActionResult Post([FromBody] Payload pl)
+        public async Task<IActionResult> PostAsync([FromBody] Payload pl)
         {
             var incomingVar = pl;
             if (incomingVar == null)
                 return BadRequest();
             _logger.Information($"Notification received for {pl.AWB} / {pl.Event}");
-            return Ok();
+
+            await _hubContext.Clients.All.SendAsync("notification", $"{DateTime.Now}: {pl.AWB}");
+            return Ok("Notification has been sent successfully!");
         }
 
         public class Payload

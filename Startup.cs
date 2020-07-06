@@ -19,9 +19,19 @@ namespace a_web_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
+
             services.AddControllers();
 
-            services.AddSingleton<ILog, LogNLog>();  
+            services.AddSingleton<ILog, LogNLog>();
+
+            services.AddSignalR();
             
         }
 
@@ -37,12 +47,16 @@ namespace a_web_api
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy");
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<NotificationHub>("/notificationhub");
                 endpoints.MapControllers();
             });
+
         }
     }
 }
