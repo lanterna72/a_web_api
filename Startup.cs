@@ -31,9 +31,15 @@ namespace a_web_api
             {
                 options.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    //policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    policy.SetIsOriginAllowedToAllowWildcardSubdomains()
+                      .WithOrigins("https://*.cargostart.net", "https://*.cargostart.tech")
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()
+                      .Build();
                 });
             });
+
 
             services.AddControllers();
 
