@@ -40,7 +40,7 @@ namespace a_web_api.Controllers
             _logger.Information($"Notification received for {pl.AWB} / {pl.Event}");
 
             await _hubContext.Clients.All.SendAsync("StUpdate", $"{DateTime.Now};{pl.AWB};{pl.Event}");
-            return Ok("Notification has been sent successfully!");
+            return Ok($"Notification has been sent successfully! { DateTime.Now};{ pl.AWB};{ pl.Event}");
         }
 
         public class Payload

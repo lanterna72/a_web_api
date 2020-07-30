@@ -41,12 +41,16 @@ namespace a_web_api
             });
 
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.RespectBrowserAcceptHeader = true; // false by default
+            });
+            services.AddMvc().AddXmlSerializerFormatters();
+
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
 
-            
             services.AddHealthChecks().AddCheck<ApiHealthCheck>("api");
 
             services.AddSingleton<ILog, LogNLog>();
